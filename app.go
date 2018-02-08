@@ -5,6 +5,8 @@ import (
 	"log"
 	"net/http"
 
+	"github.com/prometheus/client_golang/prometheus/promhttp"
+
 	"github.com/tokopedia/gosample/hello"
 	grace "gopkg.in/paytm/grace.v1"
 	logging "gopkg.in/tokopedia/logging.v1"
@@ -19,11 +21,6 @@ func main() {
 
 	debug("app started") // message will not appear unless run with -debug switch
 
-	// gops helps us get stack trace if something wrong/slow in production
-	// if err := agent.Listen(nil); err != nil {
-	// 	log.Fatal(err)
-	// }
-
 	hwm := hello.NewHelloWorldModule()
 
 	http.HandleFunc("/", hwm.RenderHtml)
@@ -32,15 +29,7 @@ func main() {
 
 	// go logging.StatsLog()
 
+	tracer.Init(&tracer.Config{Port: 8700, Enabled: true})
+
 	log.Fatal(grace.Serve(":9000", nil))
-
-	// config := nsq.NewConfig()
-	// w, _ := nsq.NewProducer("devel-go.tkpd:4150", config)
-
-	// err := w.Publish("Harry", []byte("Hello"))
-	// if err != nil {
-	// 	log.Panic("Could not connect")
-	// }
-
-	// w.Stop()
 }
