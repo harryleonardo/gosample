@@ -1,0 +1,66 @@
+<html>
+<head>
+    <title>[TOKOPEDIA]-Data Karyawan</title>
+    <script src="http://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="              crossorigin="anonymous"></script>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.1/bootstrap-table.min.css">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.1/bootstrap-table.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap.min.css">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+</head>
+<body>
+    <div style="width:100%">
+    <table id="table" class="table table-striped table-bordered" cellspacing="0" width="100%"></table>
+    <label>
+        Visitor: <input type="text" value={{$value.count}} />
+    </label> 
+    </div>  
+    <script>
+            $('#table').bootstrapTable({
+                url: "http://localhost:9000/jsonData",
+                search : true,
+                // pagination: true,
+                columns: [{
+                    field: 'id',
+                    title: 'Item ID'
+                }, {
+                    field: 'name',
+                    title: 'User Name'
+                }, 
+                {
+                    field: 'msisdn',
+                    title: 'MSISDN'
+                },
+                {
+                    field: 'email',
+                    title: 'Email'
+                },
+                {
+                    field: 'birth_date',
+                    title: 'Birth Date'
+                },
+                {
+                    field: 'created_time',
+                    title: 'Created Time'
+                },
+                {
+                    field: 'update_time',
+                    title: 'Update Time'
+                },
+                {
+                    field: 'user_age',
+                    title: 'User Age'
+                },]
+            });
+    </script>
+    <footer>
+    </footer>
+</body>
+</html>

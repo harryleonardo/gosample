@@ -2,13 +2,12 @@ package main
 
 import (
 	"flag"
-	"github.com/google/gops/agent"
 	"log"
 	"net/http"
 
 	"github.com/tokopedia/gosample/hello"
-	"gopkg.in/tokopedia/grace.v1"
-	"gopkg.in/tokopedia/logging.v1"
+	grace "gopkg.in/paytm/grace.v1"
+	logging "gopkg.in/tokopedia/logging.v1"
 )
 
 func main() {
@@ -21,14 +20,27 @@ func main() {
 	debug("app started") // message will not appear unless run with -debug switch
 
 	// gops helps us get stack trace if something wrong/slow in production
-	if err := agent.Listen(nil); err != nil {
-		log.Fatal(err)
-	}
+	// if err := agent.Listen(nil); err != nil {
+	// 	log.Fatal(err)
+	// }
 
 	hwm := hello.NewHelloWorldModule()
 
-	http.HandleFunc("/hello", hwm.SayHelloWorld)
-	go logging.StatsLog()
+	http.HandleFunc("/", hwm.RenderHtml)
+	http.HandleFunc("/jsonData", hwm.JsonData)
+	// http.HandlerFunc("/",hwm.)
+
+	// go logging.StatsLog()
 
 	log.Fatal(grace.Serve(":9000", nil))
+
+	// config := nsq.NewConfig()
+	// w, _ := nsq.NewProducer("devel-go.tkpd:4150", config)
+
+	// err := w.Publish("Harry", []byte("Hello"))
+	// if err != nil {
+	// 	log.Panic("Could not connect")
+	// }
+
+	// w.Stop()
 }
